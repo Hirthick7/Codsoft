@@ -1,21 +1,20 @@
-# Simple Calculator with Python Backend
+﻿# CODSOFT
 
-This project includes a front-end calculator using HTML, CSS, and JavaScript, and a Python backend to perform arithmetic operations.
+A multi-project repository containing frontend and backend apps.
 
-## Run locally
+## Projects
 
-1. Install dependencies:
+- `portfolio-website/`
+  - `frontend/`
+  - `README.md`
+  - A personal portfolio website built with HTML, CSS, JavaScript, and static assets.
+- `calculator-app/`
+  - `frontend/`
+  - `backend/`
+  - `README.md`
+  - A simple calculator application with a Python backend.
 
-```bash
-pip install -r requirements.txt
-```
+## How to use
 
-2. Start the backend server:
-
-```bash
-python server.py
-```
-
-3. Open the app in a browser:
-
-`http://127.0.0.1:5000`
+1. Open a project folder to view its files.
+2. Follow the `README.md` in each project for setup and usage details.

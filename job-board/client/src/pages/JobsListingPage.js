@@ -3,7 +3,7 @@
  * Browse all jobs with search and filter functionality
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { jobsAPI } from '../services/api';
 import JobCard from '../components/JobCard';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -16,11 +16,7 @@ const JobsListingPage = () => {
   const [jobType, setJobType] = useState('');
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    fetchJobs();
-  }, [search, location, jobType, page]);
-
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     try {
       setLoading(true);
       let response;
@@ -37,7 +33,11 @@ const JobsListingPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [search, location, jobType, page]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
   const handleSearch = (e) => {
     e.preventDefault();

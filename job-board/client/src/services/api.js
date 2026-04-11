@@ -69,4 +69,5 @@ export const applicationsAPI = {
     }),
 };
 
-export default { jobsAPI, applicationsAPI };
+const apiExport = { jobsAPI, applicationsAPI };
+export default apiExport;

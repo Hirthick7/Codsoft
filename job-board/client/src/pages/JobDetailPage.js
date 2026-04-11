@@ -3,7 +3,7 @@
  * Shows full job details with apply button
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { jobsAPI, applicationsAPI } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -22,11 +22,7 @@ const JobDetailPage = () => {
     resume: null,
   });
 
-  useEffect(() => {
-    fetchJobDetails();
-  }, [id]);
-
-  const fetchJobDetails = async () => {
+  const fetchJobDetails = useCallback(async () => {
     try {
       const response = await jobsAPI.getJobById(id);
       setJob(response.data.job);
@@ -35,7 +31,11 @@ const JobDetailPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchJobDetails();
+  }, [fetchJobDetails]);
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;

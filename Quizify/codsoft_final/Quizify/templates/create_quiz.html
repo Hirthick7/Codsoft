@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Create Quiz{% endblock %}
+{% block meta_desc %}Build a new quiz with custom questions and multiple-choice answers.{% endblock %}
+
+{% block content %}
+<div class="create-page section-gap">
+  <div class="container container--narrow">
+
+    <!-- Page header -->
+    <div class="page-header" data-animate="fade-up">
+      <div class="page-header-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="#4f8ef7" stroke-width="2"/>
+          <path d="M12 8v8M8 12h8" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Create a New Quiz</h1>
+        <p>Fill in the details below and add as many questions as you need.</p>
+      </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('create_quiz') }}" id="createQuizForm" novalidate>
+
+      <!-- Quiz Title -->
+      <div class="card card--form" data-animate="fade-up">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="title">Quiz Title <span class="req">*</span></label>
+            <input type="text" id="title" name="title" placeholder="e.g. World Geography Basics"
+                   required maxlength="120" />
+            <span class="field-error" id="titleError"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions Container -->
+      <div id="questionsContainer">
+        <!-- Question 1 is rendered by JS on page load -->
+      </div>
+
+      <!-- Add Question button -->
+      <button type="button" class="btn btn-outline add-question-btn" id="addQuestionBtn"
+              data-animate="fade-up">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Add Question
+      </button>
+
+      <!-- Submit -->
+      <div class="form-actions" data-animate="fade-up">
+        <a href="{{ url_for('quiz_list') }}" class="btn btn-ghost">Cancel</a>
+        <button type="submit" class="btn btn-primary btn-lg" id="createSubmitBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Save Quiz
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- Question card template (cloned by JS) -->
+<template id="questionTemplate">
+  <div class="question-card card" data-question-index="__IDX__" data-animate="fade-up">
+    <div class="question-card-header">
+      <div class="question-badge">Question <span class="q-num">__NUM__</span></div>
+      <button type="button" class="btn-remove-question" title="Remove this question" aria-label="Remove question">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <polyline points="3 6 5 6 21 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="card-body">
+
+      <!-- Question text -->
+      <div class="form-group">
+        <label>Question Text <span class="req">*</span></label>
+        <textarea name="question___IDX__" rows="2" placeholder="Enter your question here…" required maxlength="400"></textarea>
+        <span class="field-error"></span>
+      </div>
+
+      <!-- Options -->
+      <div class="options-grid">
+        <div class="form-group option-group">
+          <label>Option A <span class="req">*</span></label>
+          <div class="option-input-row">
+            <input type="radio" name="correct___IDX__" value="1" required title="Mark as correct" />
+            <input type="text" name="option___IDX___1" placeholder="Option A" required maxlength="200" />
+          </div>
+        </div>
+        <div class="form-group option-group">
+          <label>Option B <span class="req">*</span></label>
+          <div class="option-input-row">
+            <input type="radio" name="correct___IDX__" value="2" required title="Mark as correct" />
+            <input type="text" name="option___IDX___2" placeholder="Option B" required maxlength="200" />
+          </div>
+        </div>
+        <div class="form-group option-group">
+          <label>Option C <span class="req">*</span></label>
+          <div class="option-input-row">
+            <input type="radio" name="correct___IDX__" value="3" required title="Mark as correct" />
+            <input type="text" name="option___IDX___3" placeholder="Option C" required maxlength="200" />
+          </div>
+        </div>
+        <div class="form-group option-group">
+          <label>Option D <span class="req">*</span></label>
+          <div class="option-input-row">
+            <input type="radio" name="correct___IDX__" value="4" required title="Mark as correct" />
+            <input type="text" name="option___IDX___4" placeholder="Option D" required maxlength="200" />
+          </div>
+        </div>
+      </div>
+
+      <p class="option-hint">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Select the radio button next to the correct answer.
+      </p>
+
+    </div>
+  </div>
+</template>
+{% endblock %}

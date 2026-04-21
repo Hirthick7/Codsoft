@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Browse Quizzes{% endblock %}
+{% block meta_desc %}Explore all available quizzes on Quizify and challenge yourself right now.{% endblock %}
+
+{% block content %}
+<div class="quiz-list-page section-gap">
+  <div class="container">
+
+    <!-- Page header -->
+    <div class="page-header" data-animate="fade-up">
+      <div class="page-header-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 6h16M4 10h16M4 14h10" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Quiz Library</h1>
+        <p>Pick a quiz and put your knowledge to the test.</p>
+      </div>
+    </div>
+
+    {% if quizzes %}
+      <div class="quiz-grid">
+        {% for quiz in quizzes %}
+          <article class="quiz-item-card" data-animate="fade-up">
+
+            <!-- Decorative top accent -->
+            <div class="quiz-card-accent" aria-hidden="true">
+              <svg viewBox="0 0 280 6" fill="none" preserveAspectRatio="none">
+                <rect width="280" height="6" rx="3" fill="url(#acc{{ loop.index }})"/>
+                <defs>
+                  <linearGradient id="acc{{ loop.index }}" x1="0" y1="0" x2="280" y2="0">
+                    <stop offset="0%" stop-color="#4f8ef7"/>
+                    <stop offset="100%" stop-color="#818cf8"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="quiz-card-body">
+
+              <!-- Quiz icon -->
+              <div class="quiz-card-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="3" width="20" height="18" rx="3" stroke="#4f8ef7" stroke-width="2"/>
+                  <path d="M7 8h10M7 12h7M7 16h5" stroke="#4f8ef7" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <h2 class="quiz-card-title">{{ quiz.title }}</h2>
+
+              <div class="quiz-card-meta">
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  {{ quiz.createdBy }}
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  {{ quiz.questions | length }} question{% if quiz.questions | length != 1 %}s{% endif %}
+                </span>
+              </div>
+
+            </div>
+
+            <div class="quiz-card-footer">
+              <a href="{{ url_for('take_quiz', quiz_id=quiz._id) }}"
+                 class="btn btn-primary btn-sm quiz-start-btn"
+                 id="startQuizBtn_{{ quiz._id }}">
+                Start Quiz
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+          </article>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <!-- Empty state -->
+      <div class="empty-state" data-animate="fade-up">
+        <div class="empty-state-illustration" aria-hidden="true">
+          <svg viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="155" rx="70" ry="14" fill="#e8f0fe" opacity="0.7"/>
+            <rect x="40" y="30" width="120" height="130" rx="14" fill="#f0f6ff" stroke="#d0e2ff" stroke-width="2"/>
+            <path d="M60 70h80M60 90h60M60 110h40" stroke="#b0c9f5" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="100" cy="50" r="14" fill="white" stroke="#4f8ef7" stroke-width="2"/>
+            <path d="M95 50h10M100 45v10" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h2>No quizzes yet</h2>
+        <p>Be the first to create a quiz and share it with others!</p>
+        {% if user %}
+          <a href="{{ url_for('create_quiz') }}" class="btn btn-primary" id="emptyCreateBtn">Create First Quiz</a>
+        {% else %}
+          <a href="{{ url_for('register') }}" class="btn btn-primary" id="emptyRegisterBtn">Sign Up & Create</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

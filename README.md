@@ -1,20 +1,29 @@
-﻿# CODSOFT
+# Codsoft Projects
 
-A multi-project repository containing frontend and backend apps.
+This repository contains a collection of projects developed for the Codsoft internship/program. Each folder represents a distinct application with its own frontend and backend (where applicable).
 
-## Projects
+## Project List
 
-- `portfolio-website/`
-  - `frontend/`
-  - `README.md`
-  - A personal portfolio website built with HTML, CSS, JavaScript, and static assets.
-- `calculator-app/`
-  - `frontend/`
-  - `backend/`
-  - `README.md`
-  - A simple calculator application with a Python backend.
+1.  **[GoMart](./GoMart)**: A minimalist, high-performance E-Commerce application built with React, Node.js, Express, and MongoDB. Features secure authentication, a functional cart, and optimized visuals.
+2.  **[Quizify](./Quizify)**: A full-stack Online Quiz Maker application using Python Flask and MongoDB.
+3.  **[job-board](./job-board)**: A comprehensive Job Board platform for employers and candidates.
+4.  **[calculator-app](./calculator-app)**: A modern calculator application with a clean UI.
+5.  **[portfolio-website](./portfolio-website)**: A professional personal portfolio showcasing skills and projects.
 
-## How to use
+## Project Structure
 
-1. Open a project folder to view its files.
-2. Follow the `README.md` in each project for setup and usage details.
+```text
+Codsoft
+├── Quizify
+├── calculator-app
+├── job-board
+├── portfolio-website
+└── GoMart
+```
+
+## Getting Started
+
+To run any of the projects, navigate to its respective directory and follow the setup instructions in its local `README.md`.
+
+---
+© 2026 Developed by Hirthick7

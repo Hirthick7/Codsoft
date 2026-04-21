@@ -1,0 +1,98 @@
+:root {
+  --background: #0b1320;
+  --surface: #1f2a44;
+  --accent: #4ecca3;
+  --text: #e7f6f2;
+  --muted: #8ca6db;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0b1320 0%, #1b263b 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+}
+
+.calculator {
+  width: min(420px, 90vw);
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.display {
+  height: 90px;
+  width: 100%;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+  margin-bottom: 24px;
+}
+
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+button {
+  border: none;
+  border-radius: 16px;
+  padding: 22px 0;
+  font-size: 1.25rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: transform 0.16s ease, background-color 0.16s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background: rgba(78, 204, 163, 0.16);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button[data-action="operator"] {
+  background: rgba(78, 204, 163, 0.18);
+}
+
+button[data-action="equals"] {
+  background: var(--accent);
+  color: #0b1320;
+}
+
+button[data-action="clear"],
+button[data-action="delete"] {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+@media (max-width: 400px) {
+  .display {
+    font-size: 1.75rem;
+  }
+  button {
+    padding: 18px 0;
+    font-size: 1.1rem;
+  }
+}
